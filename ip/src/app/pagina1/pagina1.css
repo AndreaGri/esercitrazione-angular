@@ -1,0 +1,47 @@
+/* Contenitore principale centrato */
+.container-principale {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  background: #f8f9fa;
+}
+
+/* Card principale */
+.card-contenuto {
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
+
+/* Lista risultati */
+.risultati {
+  text-align: left;
+}
+
+.list-group-item {
+  border: none;
+  border-bottom: 1px solid #eee;
+  font-size: 15px;
+  padding: 10px;
+}
+
+.list-group-item strong {
+  color: #0d6efd;
+}
+
+/* Bottone */
+button {
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+}

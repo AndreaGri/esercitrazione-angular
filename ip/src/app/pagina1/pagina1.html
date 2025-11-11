@@ -1,0 +1,37 @@
+<div class="container-principale">
+  <div class="card-contenuto">
+    <h2 class="mb-4 text-center">Localizza un indirizzo IP</h2>
+
+   
+    <!-- BOTTONE PER IL PROPRIO IP -->
+    <button class="btn btn-success mb-4" (click)="getMyIp()">
+      Mostra il mio indirizzo IP
+    </button>
+
+    <!-- LOADING -->
+    <div *ngIf="loading" class="text-center mt-3">
+      <div class="spinner-border text-primary" role="status"></div>
+      <p>Caricamento in corso...</p>
+    </div>
+
+    <!-- ERRORE -->
+    <div *ngIf="error" class="alert alert-danger mt-3 text-center">
+      {{ error }}
+    </div>
+
+    <!-- RISULTATI -->
+    <div *ngIf="data && !loading" class="risultati mt-4">
+      <h4 class="text-center mb-3">Risultati</h4>
+      <ul class="list-group">
+        <li class="list-group-item"><strong>IP:</strong> {{ data.ip }}</li>
+        <li class="list-group-item"><strong>Paese:</strong> {{ data.country }}</li>
+        <li class="list-group-item"><strong>Città:</strong> {{ data.city }}</li>
+        <li class="list-group-item"><strong>Regione:</strong> {{ data.region }}</li>
+        <li class="list-group-item"><strong>Continente:</strong> {{ data.continent }}</li>
+        <li class="list-group-item"><strong>Latitudine:</strong> {{ data.latitude }}</li>
+        <li class="list-group-item"><strong>Longitudine:</strong> {{ data.longitude }}</li>
+        <li class="list-group-item"><strong>ISP:</strong> {{ data.connection?.isp }}</li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+/* Navbar */
+.navbar {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Contenitore dei bottoni */
+.container-bottoni {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh; /* Altezza per centrare verticalmente */
+  gap: 20px; /* Spazio tra i bottoni */
+}
+
+/* Stile dei bottoni */
+.container-bottoni button {
+  padding: 12px 24px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  background-color: #0d6efd;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.container-bottoni button:hover {
+  background-color: #0b5ed7;
+  transform: scale(1.05);
+}

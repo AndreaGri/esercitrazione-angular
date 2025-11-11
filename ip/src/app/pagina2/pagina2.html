@@ -1,0 +1,46 @@
+<div class="container-principale">
+  <div class="card-contenuto">
+    <h2 class="mb-3 text-center">Cerca un indirizzo IP</h2>
+
+    <!-- FORM -->
+    <form (ngSubmit)="getIpData()" class="form-ip" novalidate>
+      <input
+        type="text"
+        [(ngModel)]="ip"
+        name="ip"
+        class="input-ip"
+        placeholder="Es. 8.8.8.8 o 2001:4860:4860::8888"
+        aria-label="Inserisci IP"
+      />
+      <button type="submit" class="btn btn-primary">Cerca</button>
+      <button type="button" class="btn btn-outline-secondary ms-2" (click)="clear()">Reset</button>
+    </form>
+
+    <!-- LOADING -->
+    <div *ngIf="loading" class="text-center mt-3">
+      <div class="spinner-border" role="status"></div>
+      <p class="mt-2">Caricamento...</p>
+    </div>
+
+    <!-- ERRORE -->
+    <div *ngIf="error" class="alert alert-danger mt-3 text-center">
+      {{ error }}
+    </div>
+
+    <!-- RISULTATI -->
+    <div *ngIf="data && !loading" class="risultati mt-4">
+      <h5 class="text-center mb-3">Dati IP trovati</h5>
+      <ul class="list-group">
+        <li class="list-group-item"><strong>IP:</strong> {{ data.ip }}</li>
+        <li class="list-group-item"><strong>Paese:</strong> {{ data.country }}</li>
+        <li class="list-group-item"><strong>Città:</strong> {{ data.city }}</li>
+        <li class="list-group-item"><strong>Regione:</strong> {{ data.region }}</li>
+        <li class="list-group-item"><strong>Continente:</strong> {{ data.continent }}</li>
+        <li class="list-group-item"><strong>Latitude:</strong> {{ data.latitude }}</li>
+        <li class="list-group-item"><strong>Longitude:</strong> {{ data.longitude }}</li>
+        <li class="list-group-item"><strong>ISP:</strong> {{ data.connection?.isp }}</li>
+        <li class="list-group-item"><strong>Org:</strong> {{ data.org }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
