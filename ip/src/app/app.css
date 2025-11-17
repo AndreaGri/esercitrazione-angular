@@ -1,30 +1,71 @@
-/* Navbar */
-.navbar {
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+/* Navbar Custom */
+.custom-nav {
+  background: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  padding: 1rem 0;
 }
 
-/* Contenitore dei bottoni */
-.container-bottoni {
+.navbar-brand {
+  color: var(--primary-color) !important;
+  font-size: 1.5rem;
+}
+
+.nav-link-custom {
+  text-decoration: none;
+  color: var(--text-light);
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 20px;
+  transition: all 0.3s;
+}
+
+.nav-link-custom:hover, .nav-link-custom.active {
+  background-color: #eef2ff;
+  color: var(--primary-color);
+}
+
+/* Home Styling */
+.home-container {
+  min-height: 80vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 60vh; /* Altezza per centrare verticalmente */
-  gap: 20px; /* Spazio tra i bottoni */
+  position: relative;
 }
 
-/* Stile dei bottoni */
-.container-bottoni button {
-  padding: 12px 24px;
-  font-size: 18px;
+.btn-hero {
+  padding: 15px 30px;
   border: none;
-  border-radius: 10px;
-  background-color: #0d6efd;
-  color: white;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin: 0 10px;
 }
 
-.container-bottoni button:hover {
-  background-color: #0b5ed7;
-  transform: scale(1.05);
+.btn-hero:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(79, 70, 229, 0.2);
+}
+
+.btn-hero.primary {
+  background: var(--primary-color);
+  color: white;
+}
+
+.btn-hero.secondary {
+  background: white;
+  border: 2px solid #e5e7eb;
+  color: var(--text-dark);
+}
+
+.signal-icon {
+  font-size: 10rem;
+  opacity: 0.05;
+  position: absolute;
+  z-index: -1;
+  top: 20%;
+  color: var(--primary-color);
 }

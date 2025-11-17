@@ -5,7 +5,7 @@ import { Pagina2 } from './pagina2/pagina2';
 
 export const routes: Routes = [
   // se l’URL è vuoto, vai su /myip
-  { path: '', redirectTo: 'myip', pathMatch: 'full' },
+  { path: '', redirectTo: '', pathMatch: 'full' },
 
   // se l'URL è /myip mostra il componente Pagina1
   { path: 'myip', component: Pagina1 },

@@ -1,27 +1,35 @@
-<router-outlet></router-outlet>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-<div class="container-fluid">
-<a class="navbar-brand" routerLink="/">Home</a>
-<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-<span class="navbar-toggler-icon"></span>
-</button>
-<div class="collapse navbar-collapse" id="navbarNav">
-<ul class="navbar-nav">
-<li class="nav-item">
-<a class="nav-link" routerLink="/myip">Il mio IP</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" routerLink="/ip" >Trova Ip</a>
-</li>
-</ul>
-</div>
-</div>
+<nav class="navbar navbar-expand-lg custom-nav">
+  <div class="container">
+    <a class="navbar-brand fw-bold" routerLink="/">
+      <i class="bi bi-globe-americas me-2"></i>GeoTracker
+    </a>
+    
+    <div class="d-flex gap-3" *ngIf="!showButtons"> <a class="nav-link-custom" routerLink="/myip" routerLinkActive="active">Il mio IP</a>
+      <a class="nav-link-custom" routerLink="/ip" routerLinkActive="active">Cerca IP</a>
+    </div>
+  </div>
 </nav>
-<div class="container mt-4">
 
-</div>
-<div class="container-bottoni">
-  <button routerLink="/pagina1">Il mio IP</button>
-  <button routerLink="/pagina2">Trova IP</button>
+<div class="main-wrapper">
+  <router-outlet></router-outlet>
+
+  <div class="container home-container" *ngIf="showButtons">
+    <div class="hero-content text-center">
+      <h1 class="display-4 fw-bold text-primary mb-3">Esplora il mondo digitale</h1>
+      <p class="lead text-muted mb-5">Scopri la geolocalizzazione del tuo indirizzo IP o traccia qualsiasi connessione nel mondo.</p>
+      
+      <div class="action-buttons">
+        <button routerLink="/myip" class="btn-hero primary">
+          <i class="bi bi-geo-alt-fill me-2"></i> Localizzami
+        </button>
+        <button routerLink="/ip" class="btn-hero secondary">
+          <i class="bi bi-search me-2"></i> Cerca IP
+        </button>
+      </div>
+    </div>
+    
+    <div class="hero-decoration">
+      <i class="bi bi-wifi signal-icon"></i>
+    </div>
+  </div>
 </div>

@@ -1,37 +1,51 @@
-<div class="container-principale">
-  <div class="card-contenuto">
-    <h2 class="mb-4 text-center">Localizza un indirizzo IP</h2>
-
-   
-    <!-- BOTTONE PER IL PROPRIO IP -->
-    <button class="btn btn-success mb-4" (click)="getMyIp()">
-      Mostra il mio indirizzo IP
+<div class="container mt-5 fade-in">
+  
+  <div class="text-center mb-5">
+    <h2 class="fw-bold">La tua posizione attuale</h2>
+    <p class="text-muted">Analisi automatica della tua connessione</p>
+    
+    <button class="btn btn-lg btn-primary shadow-sm mt-3" (click)="getMyIp()" [disabled]="loading">
+      <span *ngIf="!loading"><i class="bi bi-radar me-2"></i>Rileva il mio IP</span>
+      <span *ngIf="loading"><span class="spinner-border spinner-border-sm me-2"></span>Analisi in corso...</span>
     </button>
+  </div>
 
-    <!-- LOADING -->
-    <div *ngIf="loading" class="text-center mt-3">
-      <div class="spinner-border text-primary" role="status"></div>
-      <p>Caricamento in corso...</p>
+  <div *ngIf="error" class="alert alert-danger shadow-sm rounded-3 text-center mx-auto" style="max-width: 600px;">
+    <i class="bi bi-exclamation-triangle me-2"></i> {{ error }}
+  </div>
+
+  <div *ngIf="data && !loading" class="dashboard-grid">
+    
+    <div class="info-card highlight-card">
+      <div class="label">Indirizzo IP</div>
+      <div class="value big">{{ data.ip }}</div>
+      <div class="sub-value"><i class="bi bi-router me-1"></i> {{ data.connection?.isp || 'N/A' }}</div>
     </div>
 
-    <!-- ERRORE -->
-    <div *ngIf="error" class="alert alert-danger mt-3 text-center">
-      {{ error }}
+    <div class="info-card">
+      <div class="icon-bg"><i class="bi bi-geo-alt"></i></div>
+      <div class="label">Posizione</div>
+      <div class="value">{{ data.city }}</div>
+      <div class="sub-value">{{ data.region }}, {{ data.country }}</div>
     </div>
 
-    <!-- RISULTATI -->
-    <div *ngIf="data && !loading" class="risultati mt-4">
-      <h4 class="text-center mb-3">Risultati</h4>
-      <ul class="list-group">
-        <li class="list-group-item"><strong>IP:</strong> {{ data.ip }}</li>
-        <li class="list-group-item"><strong>Paese:</strong> {{ data.country }}</li>
-        <li class="list-group-item"><strong>Città:</strong> {{ data.city }}</li>
-        <li class="list-group-item"><strong>Regione:</strong> {{ data.region }}</li>
-        <li class="list-group-item"><strong>Continente:</strong> {{ data.continent }}</li>
-        <li class="list-group-item"><strong>Latitudine:</strong> {{ data.latitude }}</li>
-        <li class="list-group-item"><strong>Longitudine:</strong> {{ data.longitude }}</li>
-        <li class="list-group-item"><strong>ISP:</strong> {{ data.connection?.isp }}</li>
-      </ul>
+    <div class="info-card">
+      <div class="icon-bg"><i class="bi bi-compass"></i></div>
+      <div class="label">Coordinate</div>
+      <div class="value">{{ data.latitude | number:'1.2-2' }}</div>
+      <div class="sub-value">Long: {{ data.longitude | number:'1.2-2' }}</div>
     </div>
+
+    <div class="info-card">
+      <div class="icon-bg"><i class="bi bi-globe"></i></div>
+      <div class="label">Continente</div>
+      <div class="value">{{ data.continent }}</div>
+      <div class="sub-value">Codice: {{ data.country_code }}</div>
+    </div>
+
+    <div class="map-card">
+      <div id="map"></div>
+    </div>
+
   </div>
 </div>

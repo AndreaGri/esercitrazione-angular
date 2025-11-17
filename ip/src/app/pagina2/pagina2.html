@@ -1,46 +1,75 @@
-<div class="container-principale">
-  <div class="card-contenuto">
-    <h2 class="mb-3 text-center">Cerca un indirizzo IP</h2>
-
-    <!-- FORM -->
-    <form (ngSubmit)="getIpData()" class="form-ip" novalidate>
-      <input
-        type="text"
-        [(ngModel)]="ip"
-        name="ip"
-        class="input-ip"
-        placeholder="Es. 8.8.8.8 o 2001:4860:4860::8888"
-        aria-label="Inserisci IP"
-      />
-      <button type="submit" class="btn btn-primary">Cerca</button>
-      <button type="button" class="btn btn-outline-secondary ms-2" (click)="clear()">Reset</button>
+<div class="container mt-5 fade-in">
+  
+  <div class="search-wrapper text-center mx-auto mb-5">
+    <h2 class="fw-bold mb-3">Intelligence IP</h2>
+    
+    <form (ngSubmit)="getIpData()" class="search-box shadow-sm">
+      <i class="bi bi-search text-muted ms-3"></i>
+      <input 
+        type="text" 
+        [(ngModel)]="ip" 
+        name="ip" 
+        placeholder="Inserisci indirizzo IP (es. 8.8.8.8)"
+        autocomplete="off"
+      >
+      <button type="submit" class="btn-search" [disabled]="loading">
+        {{ loading ? '...' : 'Trova' }}
+      </button>
+      <button type="button" class="btn-reset" (click)="clear()" *ngIf="data || error">
+        <i class="bi bi-x-lg"></i>
+      </button>
     </form>
+  </div>
 
-    <!-- LOADING -->
-    <div *ngIf="loading" class="text-center mt-3">
-      <div class="spinner-border" role="status"></div>
-      <p class="mt-2">Caricamento...</p>
+  <div *ngIf="error" class="alert alert-danger text-center mx-auto shadow-sm rounded-3" style="max-width: 500px;">
+    {{ error }}
+  </div>
+
+  <div *ngIf="data && !loading" class="dashboard-grid">
+    
+    <div class="info-card full-width-header">
+      <div class="d-flex align-items-center justify-content-between flex-wrap">
+        <div>
+          <div class="label">Target IP</div>
+          <div class="value big text-primary">{{ data.ip }}</div>
+        </div>
+        <div class="text-end">
+          <div class="badge bg-light text-dark p-2 border rounded">
+            <i class="bi bi-hdd-network me-1"></i> {{ data.connection?.isp }}
+          </div>
+          <div class="mt-2 text-muted small" *ngIf="data.org">
+            {{ data.org }}
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- ERRORE -->
-    <div *ngIf="error" class="alert alert-danger mt-3 text-center">
-      {{ error }}
+    <div class="info-card">
+      <div class="label">Paese</div>
+      <div class="d-flex align-items-center">
+        <span class="fs-2 me-2" *ngIf="data.flag">{{ data.flag.emoji }}</span> 
+        <div>
+          <div class="value">{{ data.country }}</div>
+          <div class="sub-value">{{ data.continent }}</div>
+        </div>
+      </div>
     </div>
 
-    <!-- RISULTATI -->
-    <div *ngIf="data && !loading" class="risultati mt-4">
-      <h5 class="text-center mb-3">Dati IP trovati</h5>
-      <ul class="list-group">
-        <li class="list-group-item"><strong>IP:</strong> {{ data.ip }}</li>
-        <li class="list-group-item"><strong>Paese:</strong> {{ data.country }}</li>
-        <li class="list-group-item"><strong>Città:</strong> {{ data.city }}</li>
-        <li class="list-group-item"><strong>Regione:</strong> {{ data.region }}</li>
-        <li class="list-group-item"><strong>Continente:</strong> {{ data.continent }}</li>
-        <li class="list-group-item"><strong>Latitude:</strong> {{ data.latitude }}</li>
-        <li class="list-group-item"><strong>Longitude:</strong> {{ data.longitude }}</li>
-        <li class="list-group-item"><strong>ISP:</strong> {{ data.connection?.isp }}</li>
-        <li class="list-group-item"><strong>Org:</strong> {{ data.org }}</li>
-      </ul>
+    <div class="info-card">
+      <div class="label">Città & Regione</div>
+      <div class="value">{{ data.city }}</div>
+      <div class="sub-value">{{ data.region }}</div>
+    </div>
+
+    <div class="info-card">
+      <div class="label">Geo</div>
+      <div class="value">{{ data.latitude | number:'1.2-2' }}</div>
+      <div class="sub-value">{{ data.longitude | number:'1.2-2' }}</div>
+    </div>
+
+    <div class="map-card">
+      <div id="map2"></div>
     </div>
   </div>
+
 </div>

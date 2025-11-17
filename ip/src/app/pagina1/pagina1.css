@@ -1,47 +1,94 @@
-/* Contenitore principale centrato */
-.container-principale {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 80vh;
-  background: #f8f9fa;
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
-/* Card principale */
-.card-contenuto {
+/* Card Stile Base */
+.info-card {
   background: white;
-  padding: 40px;
   border-radius: 16px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 500px;
-  text-align: center;
+  padding: 25px;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
 }
 
-/* Lista risultati */
-.risultati {
-  text-align: left;
+.info-card:hover {
+  transform: translateY(-5px);
 }
 
-.list-group-item {
-  border: none;
-  border-bottom: 1px solid #eee;
-  font-size: 15px;
+/* Card IP in evidenza (blu scuro) */
+.highlight-card {
+  background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+  color: white;
+  grid-column: span 1; /* Su mobile 1, desktop gestito dalla media query */
+}
+
+.highlight-card .label { color: rgba(255,255,255,0.8); }
+.highlight-card .sub-value { color: rgba(255,255,255,0.9); }
+
+/* Tipografia Card */
+.label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #9ca3af;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+.highlight-card .value { color: white; }
+
+.value.big { font-size: 1.8rem; }
+
+.sub-value {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-top: 4px;
+}
+
+/* Icona sfumata sullo sfondo delle card */
+.icon-bg {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-size: 4rem;
+  color: rgba(0,0,0,0.03);
+  transform: rotate(15deg);
+}
+
+/* Mappa */
+.map-card {
+  grid-column: 1 / -1; /* Occupa tutta la larghezza */
+  background: white;
   padding: 10px;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  height: 400px;
 }
 
-.list-group-item strong {
-  color: #0d6efd;
+#map {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  z-index: 1;
 }
 
-/* Bottone */
-button {
-  padding: 12px 20px;
-  font-size: 16px;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+/* Animazione entrata */
+.fade-in {
+  animation: fadeIn 0.6s ease-out;
 }
 
-button:hover {
-  transform: scale(1.05);
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
