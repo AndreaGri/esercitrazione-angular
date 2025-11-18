@@ -1,32 +1,63 @@
-/* Navbar Custom */
+/* Navbar Glass */
 .custom-nav {
-  background: white;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
   padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Fix per Dark Mode Navbar */
+body.dark-mode .custom-nav {
+  background: rgba(15, 23, 42, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .navbar-brand {
-  color: var(--primary-color) !important;
-  font-size: 1.5rem;
+  font-weight: 800;
+  background: -webkit-linear-gradient(45deg, var(--primary), var(--accent));
+  
+  /* --- FIX ERRORE VS CODE --- */
+  -webkit-background-clip: text;
+  background-clip: text; /* Proprietà standard aggiunta qui */
+  /* -------------------------- */
+  
+  -webkit-text-fill-color: transparent;
+  font-size: 1.9rem;
+  letter-spacing: -0.5px;
 }
 
+/* Bottoni Navbar */
 .nav-link-custom {
   text-decoration: none;
-  color: var(--text-light);
-  font-weight: 500;
-  padding: 8px 16px;
-  border-radius: 20px;
-  transition: all 0.3s;
+  color: var(--primary);            
+  border: 2px solid var(--primary); 
+  background: rgba(79, 70, 229, 0.08);
+  font-weight: 700;                 
+  padding: 8px 24px;                
+  border-radius: 50px;              
+  margin-left: 12px;                
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-block;
+  font-size: 1rem;
 }
 
-.nav-link-custom:hover, .nav-link-custom.active {
-  background-color: #eef2ff;
-  color: var(--primary-color);
+.nav-link-custom:hover, 
+.nav-link-custom.active {
+  background: var(--primary);       
+  color: white;                     
+  transform: translateY(-2px);      
+  box-shadow: 0 8px 15px rgba(79, 70, 229, 0.3); 
+  border-color: var(--primary);
 }
 
-/* Home Styling */
+/* Home Hero Section */
 .home-container {
-  min-height: 80vh;
+  min-height: 85vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -35,37 +66,71 @@
 }
 
 .btn-hero {
-  padding: 15px 30px;
-  border: none;
-  border-radius: 12px;
+  padding: 16px 32px;
+  border-radius: 16px;
   font-size: 1.1rem;
   font-weight: 600;
+  text-decoration: none;
   cursor: pointer;
+  border: none;
   transition: transform 0.2s, box-shadow 0.2s;
-  margin: 0 10px;
-}
-
-.btn-hero:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(79, 70, 229, 0.2);
+  margin: 10px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .btn-hero.primary {
-  background: var(--primary-color);
+  background: linear-gradient(135deg, var(--primary) 0%, #6366f1 100%);
   color: white;
+  box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
 }
 
 .btn-hero.secondary {
   background: white;
-  border: 2px solid #e5e7eb;
-  color: var(--text-dark);
+  color: var(--text-main);
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+/* Fix bottone home dark mode */
+body.dark-mode .btn-hero.secondary {
+  background: transparent;
+  color: white;
+  border-color: rgba(255,255,255,0.3);
 }
 
-.signal-icon {
-  font-size: 10rem;
-  opacity: 0.05;
-  position: absolute;
-  z-index: -1;
-  top: 20%;
-  color: var(--primary-color);
+.btn-hero:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(79, 70, 229, 0.25);
+}
+
+/* Tasto Toggle Dark Mode */
+.btn-theme-toggle {
+  background: transparent;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.btn-theme-toggle:hover {
+  background: var(--primary);
+  color: white;
+  transform: rotate(15deg);
+}
+
+body.dark-mode .btn-theme-toggle {
+  border-color: #facc15;
+  color: #facc15;
+}
+
+body.dark-mode .btn-theme-toggle:hover {
+  background: #facc15;
+  color: #1f2937;
 }

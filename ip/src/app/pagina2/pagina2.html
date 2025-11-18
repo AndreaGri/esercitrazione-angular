@@ -1,75 +1,70 @@
 <div class="container mt-5 fade-in">
   
-  <div class="search-wrapper text-center mx-auto mb-5">
-    <h2 class="fw-bold mb-3">Intelligence IP</h2>
+  <div class="search-wrapper text-center">
+    <h2 class="fw-bold mb-4 text-primary">Cerca Indirizzo IP</h2>
     
-    <form (ngSubmit)="getIpData()" class="search-box shadow-sm">
-      <i class="bi bi-search text-muted ms-3"></i>
+    <form (ngSubmit)="getIpData()" class="search-box">
+      <i class="bi bi-search text-muted ms-3 fs-5"></i>
       <input 
         type="text" 
         [(ngModel)]="ip" 
         name="ip" 
-        placeholder="Inserisci indirizzo IP (es. 8.8.8.8)"
+        placeholder="Inserisci un IP (es. 8.8.8.8)..."
         autocomplete="off"
       >
-      <button type="submit" class="btn-search" [disabled]="loading">
+      <button type="submit" class="btn-search shadow-sm" [disabled]="loading">
         {{ loading ? '...' : 'Trova' }}
       </button>
-      <button type="button" class="btn-reset" (click)="clear()" *ngIf="data || error">
+      
+      <button type="button" class="btn-reset ms-2" (click)="clear()" *ngIf="data || error">
         <i class="bi bi-x-lg"></i>
       </button>
     </form>
   </div>
 
-  <div *ngIf="error" class="alert alert-danger text-center mx-auto shadow-sm rounded-3" style="max-width: 500px;">
-    {{ error }}
+  <div *ngIf="error" class="alert alert-danger text-center mx-auto shadow-sm rounded-4 mb-4" style="max-width: 500px;">
+    <i class="bi bi-x-circle me-2"></i> {{ error }}
   </div>
 
   <div *ngIf="data && !loading" class="dashboard-grid">
     
-    <div class="info-card full-width-header">
-      <div class="d-flex align-items-center justify-content-between flex-wrap">
+    <div class="info-card highlight-card full-width-header" style="grid-column: 1/-1;">
+      <div class="d-flex justify-content-between align-items-center w-100 flex-wrap">
         <div>
-          <div class="label">Target IP</div>
-          <div class="value big text-primary">{{ data.ip }}</div>
+          <div class="label text-white-50">Target IP</div>
+          <div class="value big text-white">{{ data.ip }}</div>
         </div>
-        <div class="text-end">
-          <div class="badge bg-light text-dark p-2 border rounded">
-            <i class="bi bi-hdd-network me-1"></i> {{ data.connection?.isp }}
-          </div>
-          <div class="mt-2 text-muted small" *ngIf="data.org">
-            {{ data.org }}
-          </div>
+        <div class="text-end text-white">
+          <div class="fs-5"><i class="bi bi-router me-2"></i>{{ data.connection?.isp }}</div>
+          <div class="small opacity-75" *ngIf="data.org">{{ data.org }}</div>
         </div>
       </div>
     </div>
 
     <div class="info-card">
-      <div class="label">Paese</div>
-      <div class="d-flex align-items-center">
-        <span class="fs-2 me-2" *ngIf="data.flag">{{ data.flag.emoji }}</span> 
-        <div>
-          <div class="value">{{ data.country }}</div>
-          <div class="sub-value">{{ data.continent }}</div>
-        </div>
-      </div>
+      <div class="icon-bg"><i class="bi bi-flag"></i></div>
+      <div class="label">Nazione</div>
+      <div class="value">{{ data.country }}</div>
+      <div class="sub-value">{{ data.continent }} ({{ data.country_code }})</div>
     </div>
 
     <div class="info-card">
-      <div class="label">Città & Regione</div>
+      <div class="icon-bg"><i class="bi bi-buildings"></i></div>
+      <div class="label">Località</div>
       <div class="value">{{ data.city }}</div>
       <div class="sub-value">{{ data.region }}</div>
     </div>
 
     <div class="info-card">
-      <div class="label">Geo</div>
-      <div class="value">{{ data.latitude | number:'1.2-2' }}</div>
-      <div class="sub-value">{{ data.longitude | number:'1.2-2' }}</div>
+      <div class="icon-bg"><i class="bi bi-pin-map"></i></div>
+      <div class="label">Coordinate</div>
+      <div class="value">{{ data.latitude | number:'1.2-4' }}</div>
+      <div class="sub-value">Lon: {{ data.longitude | number:'1.2-4' }}</div>
     </div>
 
     <div class="map-card">
       <div id="map2"></div>
     </div>
-  </div>
 
+  </div>
 </div>

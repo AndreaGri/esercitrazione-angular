@@ -1,11 +1,20 @@
 <nav class="navbar navbar-expand-lg custom-nav">
   <div class="container">
-    <a class="navbar-brand fw-bold" routerLink="/">
+    <a class="navbar-brand" routerLink="/">
       <i class="bi bi-globe-americas me-2"></i>GeoTracker
     </a>
     
-    <div class="d-flex gap-3" *ngIf="!showButtons"> <a class="nav-link-custom" routerLink="/myip" routerLinkActive="active">Il mio IP</a>
-      <a class="nav-link-custom" routerLink="/ip" routerLinkActive="active">Cerca IP</a>
+    <div class="d-flex align-items-center gap-2">
+      
+      <div *ngIf="!showButtons" class="d-none d-md-block">
+        <a class="nav-link-custom" routerLink="/myip" routerLinkActive="active">Il mio IP</a>
+        <a class="nav-link-custom" routerLink="/ip" routerLinkActive="active">Cerca IP</a>
+      </div>
+
+      <button class="btn-theme-toggle ms-3" (click)="toggleTheme()">
+        <i class="bi" [ngClass]="isDarkMode ? 'bi-sun-fill' : 'bi-moon-stars-fill'"></i>
+      </button>
+
     </div>
   </div>
 </nav>
@@ -15,8 +24,8 @@
 
   <div class="container home-container" *ngIf="showButtons">
     <div class="hero-content text-center">
-      <h1 class="display-4 fw-bold text-primary mb-3">Esplora il mondo digitale</h1>
-      <p class="lead text-muted mb-5">Scopri la geolocalizzazione del tuo indirizzo IP o traccia qualsiasi connessione nel mondo.</p>
+      <h1 class="display-3 fw-bold mb-3" style="color: var(--text-main)">Esplora il mondo digitale</h1>
+      <p class="lead mb-5" style="color: var(--text-muted)">Scopri la geolocalizzazione del tuo indirizzo IP.</p>
       
       <div class="action-buttons">
         <button routerLink="/myip" class="btn-hero primary">
@@ -26,10 +35,6 @@
           <i class="bi bi-search me-2"></i> Cerca IP
         </button>
       </div>
-    </div>
-    
-    <div class="hero-decoration">
-      <i class="bi bi-wifi signal-icon"></i>
     </div>
   </div>
 </div>

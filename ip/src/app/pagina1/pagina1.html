@@ -1,46 +1,55 @@
 <div class="container mt-5 fade-in">
   
   <div class="text-center mb-5">
-    <h2 class="fw-bold">La tua posizione attuale</h2>
-    <p class="text-muted">Analisi automatica della tua connessione</p>
+    <h2 class="fw-bold text-primary display-5">La tua connessione</h2>
+    <p class="text-muted lead">Analisi completa del tuo indirizzo IP</p>
     
-    <button class="btn btn-lg btn-primary shadow-sm mt-3" (click)="getMyIp()" [disabled]="loading">
-      <span *ngIf="!loading"><i class="bi bi-radar me-2"></i>Rileva il mio IP</span>
-      <span *ngIf="loading"><span class="spinner-border spinner-border-sm me-2"></span>Analisi in corso...</span>
+    <button class="btn btn-lg btn-primary shadow-sm mt-3 px-5 rounded-pill" (click)="getMyIp()" [disabled]="loading">
+      <span *ngIf="!loading"><i class="bi bi-geo-fill me-2"></i>Analizza il mio IP</span>
+      <span *ngIf="loading"><span class="spinner-border spinner-border-sm me-2"></span>Caricamento...</span>
     </button>
   </div>
 
-  <div *ngIf="error" class="alert alert-danger shadow-sm rounded-3 text-center mx-auto" style="max-width: 600px;">
-    <i class="bi bi-exclamation-triangle me-2"></i> {{ error }}
+  <div *ngIf="error" class="alert alert-danger shadow-sm rounded-4 text-center mx-auto" style="max-width: 600px;">
+    <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ error }}
   </div>
 
   <div *ngIf="data && !loading" class="dashboard-grid">
     
     <div class="info-card highlight-card">
+      <div class="icon-bg"><i class="bi bi-wifi"></i></div>
       <div class="label">Indirizzo IP</div>
       <div class="value big">{{ data.ip }}</div>
-      <div class="sub-value"><i class="bi bi-router me-1"></i> {{ data.connection?.isp || 'N/A' }}</div>
+      <div class="sub-value opacity-75">
+        <i class="bi bi-hdd-network me-1"></i> {{ data.connection?.isp || 'ISP sconosciuto' }}
+      </div>
     </div>
 
     <div class="info-card">
       <div class="icon-bg"><i class="bi bi-geo-alt"></i></div>
       <div class="label">Posizione</div>
       <div class="value">{{ data.city }}</div>
-      <div class="sub-value">{{ data.region }}, {{ data.country }}</div>
+      <div class="sub-value text-muted">
+        {{ data.region }}, {{ data.country }}
+      </div>
     </div>
 
     <div class="info-card">
       <div class="icon-bg"><i class="bi bi-compass"></i></div>
-      <div class="label">Coordinate</div>
-      <div class="value">{{ data.latitude | number:'1.2-2' }}</div>
-      <div class="sub-value">Long: {{ data.longitude | number:'1.2-2' }}</div>
+      <div class="label">Coordinate GPS</div>
+      <div class="value">{{ data.latitude | number:'1.2-4' }}</div>
+      <div class="sub-value text-muted">
+        Longitudine: {{ data.longitude | number:'1.2-4' }}
+      </div>
     </div>
 
     <div class="info-card">
       <div class="icon-bg"><i class="bi bi-globe"></i></div>
       <div class="label">Continente</div>
       <div class="value">{{ data.continent }}</div>
-      <div class="sub-value">Codice: {{ data.country_code }}</div>
+      <div class="sub-value text-muted">
+        Timezone: {{ data.timezone?.id }}
+      </div>
     </div>
 
     <div class="map-card">

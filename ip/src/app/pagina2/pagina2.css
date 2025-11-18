@@ -1,115 +1,130 @@
-/* Importiamo lo stile della griglia da Pagina 1? 
-   In Angular meglio copiare le classi specifiche o usare uno shared scss. 
-   Qui ripeto le classi essenziali per completezza. */
+/* --- INCOLLA IL TUO CODICE ORIGINALE QUI SOTTO --- */
 
+/* Griglia Dashboard */
 .dashboard-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  max-width: 1000px;
-  margin: 0 auto;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-top: 20px;
+  padding-bottom: 40px;
 }
 
-.full-width-header {
-  grid-column: 1 / -1;
-  border-left: 5px solid var(--primary-color);
-}
-
+/* Stile Card Glassmorphism */
 .info-card {
-  background: white;
-  border-radius: 16px;
-  padding: 25px;
-  box-shadow: var(--shadow);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur-strength));
+  -webkit-backdrop-filter: blur(var(--blur-strength));
+  border: var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: 24px;
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.info-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(31, 38, 135, 0.1);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+/* Card in evidenza */
+.highlight-card {
+  background: linear-gradient(135deg, var(--primary) 0%, #6366f1 100%);
+  color: white;
+  border: none;
+}
+
+.highlight-card .label { color: rgba(255,255,255,0.8); }
+.highlight-card .value { color: white; }
+.highlight-card .sub-value { color: rgba(255,255,255,0.9); }
+.highlight-card .icon-bg { color: rgba(255,255,255,0.1); }
+
+/* Tipografia */
 .label {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
-  color: #9ca3af;
+  letter-spacing: 1.5px;
+  color: #94a3b8;
   font-weight: 700;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 }
 
 .value {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--text-dark);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+.value.big { font-size: 1.8rem; }
+
+.sub-value {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+  font-weight: 500;
 }
 
-.value.big { font-size: 2rem; }
-
-/* BARRA DI RICERCA STILIZZATA */
-.search-wrapper {
-  max-width: 600px;
+/* Icona sfondo */
+.icon-bg {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  font-size: 5rem;
+  color: rgba(79, 70, 229, 0.05);
+  transform: rotate(10deg);
+  pointer-events: none;
+  transition: all 0.3s;
+}
+.info-card:hover .icon-bg {
+  transform: rotate(0deg) scale(1.1);
+  color: rgba(79, 70, 229, 0.1);
 }
 
-.search-box {
-  background: white;
-  border-radius: 50px;
-  padding: 8px;
-  display: flex;
-  align-items: center;
-  transition: box-shadow 0.3s;
-  border: 1px solid #e5e7eb;
-}
-
-.search-box:focus-within {
-  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
-  border-color: var(--primary-color);
-}
-
-.search-box input {
-  border: none;
-  outline: none;
-  flex-grow: 1;
-  padding: 10px 15px;
-  font-size: 1rem;
-  color: var(--text-dark);
-}
-
-.btn-search {
-  background: var(--primary-color);
-  color: white;
-  border: none;
-  padding: 10px 25px;
-  border-radius: 30px;
-  font-weight: 600;
-  transition: background 0.2s;
-}
-
-.btn-search:hover:not(:disabled) {
-  background: #4338ca;
-}
-
-.btn-reset {
-  background: transparent;
-  border: none;
-  color: #9ca3af;
-  margin-right: 5px;
-}
-.btn-reset:hover { color: #ef4444; }
-
-/* MAPPA */
+/* Mappa Container */
 .map-card {
   grid-column: 1 / -1;
-  background: white;
-  padding: 10px;
-  border-radius: 16px;
-  box-shadow: var(--shadow);
+  border-radius: 24px;
+  overflow: hidden;
   height: 400px;
-  margin-top: 10px;
+  background: white;
+  padding: 8px;
+  box-shadow: var(--glass-shadow);
 }
 
-#map2 {
+/* Search Box (per pagina 2) */
+.search-wrapper { max-width: 650px; margin: 0 auto 3rem auto; position: relative; z-index: 10; }
+.search-box { display: flex; align-items: center; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(15px); padding: 10px; border-radius: 50px; box-shadow: 0 10px 25px rgba(79, 70, 229, 0.1); border: 1px solid rgba(255,255,255, 1); transition: all 0.3s ease; }
+.search-box:focus-within { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(79, 70, 229, 0.15); border-color: var(--primary); }
+.search-box input { border: none; background: transparent; flex-grow: 1; padding: 12px 20px; font-size: 1.1rem; color: var(--text-main); outline: none; }
+.btn-search { background: var(--primary); color: white; border: none; border-radius: 30px; padding: 12px 28px; font-weight: 600; cursor: pointer; }
+.btn-reset { background: #f3f4f6; border: none; width: 40px; height: 40px; border-radius: 50%; margin-right: 8px; }
+
+/* --- CORREZIONE CRITICA PER LA MAPPA --- */
+/* Senza questa regola "height: 100% !important", la mappa dentro .map-card rischia di sparire */
+#map, #map2 {
   width: 100%;
-  height: 100%;
-  border-radius: 12px;
+  height: 100% !important; 
+  border-radius: 18px;
+  z-index: 1;
+}
+/* FIX DEFINITIVO: Mantiene lo sfondo colorato e il testo bianco all'hover */
+.info-card.highlight-card:hover {
+  /* Forza lo sfondo a rimanere gradiente (Blu/Viola) */
+  background: linear-gradient(135deg, var(--primary) 0%, #6366f1 100%) !important;
+  
+  /* Aggiunge un'ombra colorata carina invece di quella grigia */
+  box-shadow: 0 15px 35px rgba(79, 70, 229, 0.4) !important;
 }
 
-.fade-in {
-  animation: fadeIn 0.5s ease-out;
+/* Assicura che il testo dell'IP rimanga bianco */
+.info-card.highlight-card:hover .value {
+  color: #ffffff !important;
 }
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+
+/* Assicura che le etichette rimangano bianche (leggermente trasparenti) */
+.info-card.highlight-card:hover .label,
+.info-card.highlight-card:hover .sub-value {
+  color: rgba(255, 255, 255, 0.9) !important;
 }

@@ -1,35 +1,93 @@
-/* You can add global styles to this file, and also import other style files */
-@import "leaflet/dist/leaflet.css";
-/* styles.css */
+/* =========================================
+   FILE: src/styles.css
+   (Gestisce i colori globali e corregge Bootstrap)
+   ========================================= */
+
 :root {
-  --primary-color: #4f46e5; /* Indigo */
-  --secondary-color: #818cf8;
-  --bg-color: #f3f4f6;
-  --text-dark: #1f2937;
-  --text-light: #6b7280;
-  --card-bg: #ffffff;
-  --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  /* --- COLORI BRAND --- */
+  --primary: #4f46e5;       /* Indigo */
+  --primary-dark: #3730a3;
+  --accent: #f472b6;
+
+  /* --- TEMA CHIARO (DEFAULT) --- */
+  --bg-main: #eef2ff;       /* Sfondo pagina */
+  --text-main: #1f2937;     /* Testo principale (scuro) */
+  --text-muted: #6b7280;    /* Testo secondario (grigio) */
+  
+  /* Vetro (Glassmorphism) Chiaro */
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.4);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+
+  /* Sfondo Aurora Chiaro */
+  --aurora-1: rgba(165, 180, 252, 0.4);
+  --aurora-2: rgba(196, 181, 253, 0.4);
+  --aurora-3: rgba(252, 165, 165, 0.3);
 }
 
+/* --- TEMA SCURO (Quando attivo) --- */
+body.dark-mode {
+  --bg-main: #0f172a;       /* Sfondo pagina scuro (Blu Notte) */
+  --text-main: #f1f5f9;     /* Testo principale (BIANCO PURO) */
+  --text-muted: #cbd5e1;    /* Testo secondario (Grigio Chiarissimo) */
+
+  /* Vetro Scuro */
+  --glass-bg: rgba(30, 41, 59, 0.7); 
+  --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+
+  /* Sfondo Aurora Scuro */
+  --aurora-1: rgba(79, 70, 229, 0.15);
+  --aurora-2: rgba(124, 58, 237, 0.15);
+  --aurora-3: rgba(236, 72, 153, 0.1);
+}
+
+/* --- STILI BASE --- */
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: var(--bg-color);
-  color: var(--text-dark);
   margin: 0;
-  padding-bottom: 40px;
+  min-height: 100vh;
+  
+  /* Qui usiamo le variabili! */
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  background-image: 
+    radial-gradient(at 0% 0%, var(--aurora-1) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, var(--aurora-2) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, var(--aurora-3) 0px, transparent 50%);
+  background-attachment: fixed;
+  background-size: cover;
 }
 
-/* Scrollbar personalizzata */
-::-webkit-scrollbar {
-  width: 8px;
+/* Fix Mappa in Dark Mode (Inversione colori) */
+body.dark-mode .leaflet-tile-pane {
+  filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
 }
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
+
+/* Animazione Fade In */
+.fade-in { animation: fadeInUp 0.6s ease-out forwards; opacity: 0; }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+
+/* ============================================================
+   !!! OVERRIDE BOOTSTRAP PER DARK MODE !!!
+   (Corregge il titolo "La tua connessione" nell'immagine)
+   ============================================================ */
+
+/* Rende i testi 'muted' chiari in dark mode */
+body.dark-mode .text-muted {
+  color: var(--text-muted) !important;
 }
-::-webkit-scrollbar-thumb {
-  background: #c7c7c7;
-  border-radius: 4px;
+
+/* Rende i titoli 'text-primary' luminosi in dark mode */
+body.dark-mode .text-primary {
+  color: #818cf8 !important; /* Indaco chiaro */
 }
-::-webkit-scrollbar-thumb:hover {
-  background: var(--secondary-color);
+
+/* Forza tutti i titoli a usare il colore del testo principale (bianco in dark mode) */
+body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h5 {
+  color: var(--text-main);
 }

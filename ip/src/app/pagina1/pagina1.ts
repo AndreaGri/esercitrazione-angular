@@ -17,11 +17,11 @@ export class Pagina1 {
   loading: boolean = false;
   error: string = '';
 
-  map: any;   // 👈 AGGIUNTO
+  map: any; 
 
+  // Rimosso "router: any" perché non serve più per questa logica
   constructor(private service: Service) {}
 
-  // Funzione per ottenere i dati del proprio IP
   getMyIp() {
     this.loading = true;
     this.error = '';
@@ -31,8 +31,7 @@ export class Pagina1 {
       next: (res) => {
         this.data = res;
         this.loading = false;
-
-        // AGGIUNTA MAPPA QUI
+        // Chiamiamo la mappa
         this.loadMap(res.latitude, res.longitude);
       },
       error: () => {
@@ -42,29 +41,35 @@ export class Pagina1 {
     });
   }
 
-  // =============================
-  //      FUNZIONE MAPPA
-  // =============================
   loadMap(lat: number, lon: number) {
+    // 1. Rimuovi mappa precedente
+    if (this.map) {
+      this.map.remove();
+      this.map = null; // Reset della variabile
+    }
 
-  if (this.map) {
-    this.map.remove();
+    // 2. Timeout per attendere l'HTML
+    setTimeout(() => {
+      
+      // CORREZIONE: Usiamo direttamente 'map' perché siamo in Pagina 1
+      // Non usare this.router qui, crea solo confusione e bug.
+      this.map = L.map('map').setView([lat, lon], 13);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap'
+      }).addTo(this.map);
+
+      L.marker([lat, lon])
+        .addTo(this.map)
+        .bindPopup('Posizione rilevata')
+        .openPopup();
+
+      // 3. InvalidateSize per correggere il rendering grafico
+      setTimeout(() => {
+        this.map.invalidateSize(); 
+      }, 300);
+
+    }, 100); 
   }
-
-  // ASPETTA che Angular mostri il div
-  setTimeout(() => {
-    this.map = L.map('map').setView([lat, lon], 12);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19
-    }).addTo(this.map);
-
-    L.marker([lat, lon])
-      .addTo(this.map)
-      .bindPopup('Posizione rilevata per questo IP')
-      .openPopup();
-
-  }, 50);   // <-- Piccolo ritardo per sicurezza
-}
-
 }
